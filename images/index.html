@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultuur in Gieten</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header met navigatie */
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background: #f0f0f0;
+        }
+
+        /* Container voor de inhoud */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Pagina secties */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        /* Grid voor foto-knoppen */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* Foto kaart met link */
+        .photo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .photo-card-content {
+            padding: 20px;
+        }
+
+        .photo-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .photo-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Info pagina stijl - FLIPCARDS */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 450px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .flip-card-front {
+            background: white;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .flip-card-front h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .flip-card-front .kerndoel {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .flip-card-front p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .flip-card-back h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .flip-card-back .section {
+            margin-bottom: 15px;
+        }
+
+        .flip-card-back .section-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .flip-card-back ul {
+            margin-left: 15px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .flip-card-back p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .analysis-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .tag-strong {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .tag-weak {
+            background: rgba(244, 67, 54, 0.3);
+        }
+
+        .tag-attention {
+            background: rgba(255, 152, 0, 0.3);
+        }
+
+        /* Gallery stijl */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gallery-item-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .gallery-item p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .gallery-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .gallery-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Featured pagina stijl */
+        .featured-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .featured-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+        }
+
+        .featured-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .featured-content p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .featured-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .featured-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Bronnen sectie */
+        .sources-section {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .sources-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .source-link {
+            display: block;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .source-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .source-link .source-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .source-link .source-title {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .source-link .source-author {
+            font-size: 0.9em;
+            opacity: 0.9;
+            display: block;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .photo-grid, .info-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+
+            .flip-card {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- NAVIGATIE -->
+        <header>
+            <nav>
+                <a href="#home" class="nav-link active" onclick="showPage('home')">Home</a>
+                <a href="#info" class="nav-link" onclick="showPage('info')">Cultuur bij OBS Gieten</a>
+                <a href="#gallery" class="nav-link" onclick="showPage('gallery')">Cultuur in Gieten</a>
+                <a href="#featured" class="nav-link" onclick="showPage('featured')">Cultuur Route</a>
+            </nav>
+        </header>
+
+        <!-- HOME PAGINA -->
+        <div id="home" class="page active">
+            <h1>Welkom bij Cultuur in Gieten</h1>
+            <div class="photo-grid">
+                <div class="photo-card" onclick="showPage('info')">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800" alt="School">
+                    <div class="photo-card-content">
+                        <h2>Cultuur bij OBS Gieten</h2>
+                        <p>Ontdek de culturele activiteiten en tradities op onze basisschool</p>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="showPage('gallery')">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800" alt="Gieten">
+                    <div class="photo-card-content">
+                        <h2>Cultuur in Gieten</h2>
+                        <p>Verken de culturele plekken en bezienswaardigheden in Gieten</p>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="showPage('featured')">
+                    <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800" alt="Route">
+                    <div class="photo-card-content">
+                        <h2>Cultuur Route</h2>
+                        <p>Volg de cultuurroute door Gieten met alle belangrijke stops</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO PAGINA -->
+        <div id="info" class="page">
+            <h1>Cultuur bij OBS Gieten</h1>
+            <div class="info-grid">
+                
+                <!-- FLIPCARD 1: Kunstzinnige Oriëntatie -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">🎨</div>
+                            <h3>Kerndoel 54</h3>
+                            <p class="kerndoel">Kunstzinnige oriëntatie (algemeen)</p>
+                            <p>De leerlingen leren op eigen werk en dat van anderen te reflecteren.</p>
+                            <p><em>Dit omvat alle kunstdisciplines: beeldend, muziek, drama en dans. Kinderen leren niet alleen maken, maar ook kijken naar, luisteren naar en praten over kunst.</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet</h3>
+                            <div class="section">
+                                <div class="section-title">📚 Structureel tijdsaanbod:</div>
+                                <ul>
+                                    <li>Groep 1-2: 7 uur per week</li>
+                                    <li>Groep 3-8: 4 uur per week</li>
+                                    <li>Alle disciplines aanwezig</li>
+                                    <li>Professionele begeleiding (vakdocenten)</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-strong">✅ STERK</span>
+                                <p>Ruim voldoende tijd, breed aanbod, professionele begeleiding</p>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZWAK</span>
+                                <p>Geen doorlopende leerlijnen. Reflectie niet geborgd. Dans onderbelicht.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLIPCARD 2: Waarneming -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">👁️</div>
+                            <h3>Kerndoel 55</h3>
+                            <p class="kerndoel">Waarneming</p>
+                            <p>De leerlingen leren aspecten van de kunsten te benoemen, in hun leefomgeving en daarbuiten.</p>
+                            <p><em>Dit betekent: leren kijken naar kunst in de eigen omgeving, kennismaken met erfgoed (musea, monumenten), ontwikkelen van kunstbeschouwing.</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet</h3>
+                            <div class="section">
+                                <div class="section-title">✅ Aanwezig:</div>
+                                <p>Kunstenaars in de klas via Kunstmenu (themadocenten)</p>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZEER ZWAK</span>
+                                <p><strong>Meest onderontwikkelde kerndoel</strong></p>
+                            </div>
+                            <div class="section">
+                                <div class="section-title">Wat ontbreekt:</div>
+                                <ul>
+                                    <li>Geen gebruik van culturele omgeving Drenthe</li>
+                                    <li>Geen museumbezoeken geborgd</li>
+                                    <li>Geen kunstbeschouwing</li>
+                                    <li>Geen leren benoemen van kunstaspecten</li>
+                                </ul>
+                            </div>
+                            <p><em>Gemiste kans: hunebedden op 10 min afstand!</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLIPCARD 3: Beeldend -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">🖼️</div>
+                            <h3>Kerndoel 56 - Beeldend</h3>
+                            <p class="kerndoel">Productie - Beeldend</p>
+                            <p>De leerlingen leren hun ervaringen en gevoelens vorm te geven in tekeningen, schilderwerk, ruimtelijk werk.</p>
+                            <p><em>Kinderen leren werken met diverse materialen en technieken, experimenteren, planmatig werken aan kunstproducten.</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet - Beeldend</h3>
+                            <div class="section">
+                                <div class="section-title">📚 Methode & Tijd:</div>
+                                <ul>
+                                    <li>Eigenwijs Next (bewuste keuze)</li>
+                                    <li>2 uur per week (groep 3-8)</li>
+                                    <li>Themadocenten via Kunstmenu</li>
+                                    <li>Eigen speellokaal</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-strong">✅ GOED</span>
+                                <p>Eigentijdse methode, ruim voldoende tijd, externe expertise</p>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZWAK</span>
+                                <p>Geen systematische opbouw. Geen tussendoelen. School erkent dit als ontwikkelpunt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLIPCARD 4: Muziek -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">🎵</div>
+                            <h3>Kerndoel 56 - Muziek</h3>
+                            <p class="kerndoel">Productie - Muziek</p>
+                            <p>De leerlingen leren hun ervaringen en gevoelens vorm te geven in muziek.</p>
+                            <p><em>Kinderen leren zingen, musiceren, luisteren, herkennen van muzikale elementen (ritme, melodie, tempo).</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet - Muziek</h3>
+                            <div class="section">
+                                <div class="section-title">🎹 Aanbod:</div>
+                                <ul>
+                                    <li>Vakdocent muziek (NPO-gelden)</li>
+                                    <li>2 uur voor groep 1-2</li>
+                                    <li>0,5 uur voor groep 3-8</li>
+                                    <li>Muziekschool op locatie</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-strong">✅ STERK</span>
+                                <p>Vakdocent is grote plus: specialistische kennis over stemvorming en instrumenten</p>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZWAK</span>
+                                <p>Geen leerlijn muziek. 0,5 uur is krap voor groep 3-8. NPO-gelden zijn tijdelijk.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLIPCARD 5: Drama -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">🎭</div>
+                            <h3>Kerndoel 56 - Drama</h3>
+                            <p class="kerndoel">Productie - Drama</p>
+                            <p>De leerlingen leren hun ervaringen en gevoelens vorm te geven in toneelspel.</p>
+                            <p><em>Kinderen leren improviseren, rollen spelen, scènes ontwikkelen, samenwerken aan voorstellingen.</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet - Drama</h3>
+                            <div class="section">
+                                <div class="section-title">🎬 Aanbod:</div>
+                                <ul>
+                                    <li>0,5 uur drama/muziek per week</li>
+                                    <li>Jaarlijkse musical groep 8</li>
+                                    <li>Themadocenten via Kunstmenu</li>
+                                    <li>Drama-elementen in Kwink (SEL)</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-strong">✅ STERK</span>
+                                <p>Musical groep 8 is prachtig hoogtepunt: integrale kunst (acteren + zingen + dansen)</p>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZWAK</span>
+                                <p>Geen leerlijn drama. 0,5 uur is weinig. Drama vooral als middel, niet als doel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLIPCARD 6: Dans -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="icon">💃</div>
+                            <h3>Kerndoel 56 - Dans</h3>
+                            <p class="kerndoel">Productie - Dans</p>
+                            <p>De leerlingen leren hun ervaringen en gevoelens vorm te geven in dans.</p>
+                            <p><em>Kinderen leren bewegen op muziek, choreografieën maken en uitvoeren, bewust gebruiken van ruimte en lichaam.</em></p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Wat OBS Gieten doet - Dans</h3>
+                            <div class="section">
+                                <div class="section-title">⚠️ Beperkt aanbod:</div>
+                                <ul>
+                                    <li>Groep 1-2: bewegen op muziek</li>
+                                    <li>Groep 3-8: GEEN structureel aanbod</li>
+                                    <li>Incidenteel via Kunstmenu</li>
+                                    <li>Mogelijk in musical groep 8</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <span class="analysis-tag tag-weak">❌ ZEER ZWAK</span>
+                                <p><strong>Minst ontwikkelde discipline</strong></p>
+                            </div>
+                            <div class="section">
+                                <div class="section-title">Probleem:</div>
+                                <p>Kerndoel noemt dans expliciet, maar wordt niet geborgd in onderwijsaanbod. Geen beleid, geen leerlijn.</p>
+                            </div>
+                            <p><em>Dans verdient gelijkwaardige plek naast andere disciplines</em></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- BRONNEN SECTIE -->
+            <div class="sources-section">
+                <h2>📚 Bronnen</h2>
+                <div class="sources-grid">
+                    <a href="https://www.obsgieten.nl" target="_blank" class="source-link">
+                        <span class="source-icon">📄</span>
+                        <span class="source-title">Schoolgids 2025-2026</span>
+                        <span class="source-author">OBS Gieten (2025)</span>
+                    </a>
+
+                    <a href="https://www.primah.nl" target="_blank" class="source-link">
+                        <span class="source-icon">📋</span>
+                        <span class="source-title">Schoolplan 2024-2028</span>
+                        <span class="source-author">Stichting PrimAH (2024)</span>
+                    </a>
+
+                    <a href="https://www.slo.nl/thema/meer/tule/kunstzinnige-orientatie/" target="_blank" class="source-link">
+                        <span class="source-icon">🎨</span>
+                        <span class="source-title">Kunstzinnige Oriëntatie</span>
+                        <span class="source-author">SLO (Kerndoelen)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY PAGINA -->
+        <div id="gallery" class="page">
+            <h1>Cultuur in Gieten</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800" alt="Gemengd Koor">
+                    <div class="gallery-item-content">
+                        <h3>Gemengd Koor Gieten</h3>
+                        <p>Zingende vereniging voor muziekliefhebbers in Gieten</p>
+                        <a href="https://gemengdkoorgieten.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=800" alt="Toneel">
+                    <div class="gallery-item-content">
+                        <h3>Eureka Toneel</h3>
+                        <p>Toneelvereniging met passie voor theater en voorstellingen</p>
+                        <a href="https://eurekatoneel.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800" alt="Dans">
+                    <div class="gallery-item-content">
+                        <h3>TOGIDO</h3>
+                        <p>Dans- en gymnastieksportvereniging voor alle leeftijden</p>
+                        <a href="https://togido.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800" alt="Muziekschool">
+                    <div class="gallery-item-content">
+                        <h3>Muziekschool De Hondsrug</h3>
+                        <p>Muziekonderwijs voor jong en oud in verschillende instrumenten</p>
+                        <a href="https://muziekschooldehondsrug.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800" alt="Bibliotheek">
+                    <div class="gallery-item-content">
+                        <h3>Bibliotheek Gieten</h3>
+                        <p>Boeken lenen, studeren en culturele activiteiten bijwonen</p>
+                        <a href="https://www.bindbibliotheken.nl/vestigingen/openingstijden/vestiging.510293.html/bibliotheek-gieten/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=800" alt="Museum">
+                    <div class="gallery-item-content">
+                        <h3>Dorpsmuseum De Kluisext</h3>
+                        <p>Ontdek de rijke geschiedenis van Gieten en omgeving</p>
+                        <a href="https://www.dorpsmuseumdekluiseext.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED PAGINA -->
+        <div id="featured" class="page">
+            <h1>Cultuur Route</h1>
+            <div class="featured-card">
+                <a href="https://maps.app.goo.gl/7WV8KVU1UFDek93E9" target="_blank">
+                    <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=1200" 
+                         alt="Route kaart" 
+                         class="featured-image">
+                </a>
+
+                <div class="featured-content">
+                    <h2>Op zoek naar cultuur in Gieten</h2>
+                    <p>
+                        Gieten heeft verrassende kunstwerken, ontdek deze op een mooie wandeling door dit prachtige dorp.
+                    </p>
+                    <p>
+                        Klik op de afbeelding hierboven of gebruik de knop hieronder om de volledige 
+                        routebeschrijving te bekijken in Google Maps. Daar vind je gedetailleerde 
+                        navigatie-instructies en informatie over alle stops.
+                    </p>
+                    
+                    <a href="https://maps.app.goo.gl/7WV8KVU1UFDek93E9" 
+                       class="featured-link" 
+                       target="_blank">
+                       Bekijk Route in Google Maps →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Verberg alle pagina's
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Toon de geselecteerde pagina
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update actieve nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Scroll naar boven
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
