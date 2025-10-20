@@ -13,9 +13,68 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffffff;
             min-height: 100vh;
             padding: 20px;
+        }
+
+        /* Container achtergrond */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+        }
+
+        /* Verschillende achtergronden per pagina */
+        #home {
+            background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+            padding: 20px;
+            border-radius: 15px;
+            min-height: calc(100vh - 150px);
+        }
+
+        #info {
+            background-image: url('images/logoobsgieten.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
+            border-radius: 15px;
+            min-height: calc(100vh - 150px);
+        }
+
+        #info h1 {
+            color: #c8102e;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+
+        #gallery {
+            background-image: url('images/wapengieten.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
+            border-radius: 15px;
+            min-height: calc(100vh - 150px);
+        }
+
+        #gallery h1 {
+            color: #0066cc;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+
+        #featured {
+            background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+            padding: 20px;
+            border-radius: 15px;
+            min-height: calc(100vh - 150px);
+        }
+
+        #poster {
+            background: linear-gradient(135deg, #c8102e 0%, #a00d25 100%);
+            padding: 20px;
+            border-radius: 15px;
+            min-height: calc(100vh - 150px);
         }
 
         /* Header met navigatie */
@@ -473,7 +532,7 @@
             <nav>
                 <a href="#home" class="nav-link active" onclick="showPage('home')">Home</a>
                 <a href="#info" class="nav-link" onclick="showPage('info')">Cultuur bij OBS Gieten</a>
-                <a href="#gallery" class="nav-link" onclick="showPage('gallery')">Cultuur in Gieten</a>
+                <a href="#gallery" class="nav-link" onclick="showPage('gallery')">Culturele instellingen Gieten</a>
                 <a href="#featured" class="nav-link" onclick="showPage('featured')">Cultuur Route</a>
                 <a href="#poster" class="nav-link" onclick="showPage('poster')">Poster</a>
             </nav>
@@ -494,8 +553,8 @@
                 <div class="photo-card" onclick="showPage('gallery')">
                     <img src="images/wapengieten.jpeg" alt="Gieten">
                     <div class="photo-card-content">
-                        <h2>Cultuur in Gieten</h2>
-                        <p>Verken de culturele plekken en bezienswaardigheden in Gieten</p>
+                        <h2>Culturele instellingen Gieten</h2>
+                        <p>Maak kennis met de culturele instellingen van Gieten</p>
                     </div>
                 </div>
 
@@ -751,7 +810,7 @@
 
         <!-- GALLERY PAGINA -->
         <div id="gallery" class="page">
-            <h1>Cultuur in Gieten</h1>
+            <h1>Culturele instellingen Gieten</h1>
             <div class="gallery-grid">
                 <div class="gallery-item">
                     <img src="images/gemengdkoor.png" alt="Gemengd Koor">
