@@ -747,3 +747,94 @@
                     <div class="gallery-item-content">
                         <h3>TOGIDO</h3>
                         <p>Muziekvereniging Togido Eext, opgericht in 1928</p>
+                        <a href="https://togido.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/dehondsrug.png" alt="Muziekschool">
+                    <div class="gallery-item-content">
+                        <h3>Muziekschool De Hondsrug</h3>
+                        <p>Muziekonderwijs voor jong en oud in verschillende instrumenten</p>
+                        <a href="https://muziekschooldehondsrug.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/bibliotheek.png" alt="Bibliotheek">
+                    <div class="gallery-item-content">
+                        <h3>Bibliotheek Gieten</h3>
+                        <p>Boeken lenen, studeren en culturele activiteiten bijwonen</p>
+                        <a href="https://www.bindbibliotheken.nl/vestigingen/openingstijden/vestiging.510293.html/bibliotheek-gieten/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/dekluis.jpg" alt="Museum">
+                    <div class="gallery-item-content">
+                        <h3>Dorpsmuseum De Kluisext</h3>
+                        <p>Ontdek de rijke geschiedenis van Gieten en omgeving</p>
+                        <a href="https://www.dorpsmuseumdekluiseext.nl/" target="_blank" class="gallery-link">Bezoek Website →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED PAGINA -->
+        <div id="featured" class="page">
+            <h1>Cultuur Route</h1>
+            <div class="featured-card">
+                <a href="https://maps.app.goo.gl/7WV8KVU1UFDek93E9" target="_blank">
+                    <img src="images/routekaart.png" 
+                         alt="Route kaart" 
+                         class="featured-image">
+                </a>
+
+                <div class="featured-content">
+                    <h2>Op zoek naar cultuur in Gieten</h2>
+                    <p>
+                        Gieten heeft verrassende kunstwerken, monumenten en ander bezienswaardigheden. Ontdek deze op een mooie wandeling door dit prachtige dorp. 
+                    </p>
+                    <p>
+                        Klik op de afbeelding hierboven of gebruik de knop hieronder om de volledige 
+                        routebeschrijving te bekijken in Google Maps.
+                    </p>
+                    
+                    <a href="https://maps.app.goo.gl/7WV8KVU1UFDek93E9" 
+                       class="featured-link" 
+                       target="_blank">
+                       Bekijk Route in Google Maps →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Verberg alle pagina's
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Toon de geselecteerde pagina
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update actieve nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Scroll naar boven
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Functie voor flipcards op mobiel/tablet
+        function toggleFlip(card) {
+            // Alleen toepassen op touch devices (niet op desktop met hover)
+            if (window.matchMedia("(hover: none)").matches) {
+                card.classList.toggle('flipped');
+            }
+        }
+    </script>
+</body>
+</html>
