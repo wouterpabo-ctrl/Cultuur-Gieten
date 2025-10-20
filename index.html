@@ -421,6 +421,26 @@
             display: block;
         }
 
+        /* Poster pagina stijl */
+        .poster-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poster-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: white;
+            padding: 10px;
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             h1 {
@@ -455,6 +475,7 @@
                 <a href="#info" class="nav-link" onclick="showPage('info')">Cultuur bij OBS Gieten</a>
                 <a href="#gallery" class="nav-link" onclick="showPage('gallery')">Cultuur in Gieten</a>
                 <a href="#featured" class="nav-link" onclick="showPage('featured')">Cultuur Route</a>
+                <a href="#poster" class="nav-link" onclick="showPage('poster')">Poster</a>
             </nav>
         </header>
 
@@ -483,6 +504,14 @@
                     <div class="photo-card-content">
                         <h2>Cultuur Route</h2>
                         <p>Volg de cultuurroute door Gieten met alle belangrijke stops</p>
+                    </div>
+                </div>
+
+                <div class="photo-card" onclick="showPage('poster')">
+                    <img src="images/poster.png" alt="Poster">
+                    <div class="photo-card-content">
+                        <h2>Poster</h2>
+                        <p>Bekijk de cultuurposter van Gieten</p>
                     </div>
                 </div>
             </div>
@@ -806,6 +835,14 @@
                        Bekijk Route in Google Maps →
                     </a>
                 </div>
+            </div>
+        </div>
+
+        <!-- POSTER PAGINA -->
+        <div id="poster" class="page">
+            <h1>Cultuur Poster</h1>
+            <div class="poster-container">
+                <img src="images/poster.png" alt="Cultuur Poster Gieten" class="poster-image">
             </div>
         </div>
     </div>
